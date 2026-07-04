@@ -7,7 +7,7 @@ molecular foundation models, **generates novel candidate molecules optimized for
 that target**, scores them (potency + drug-likeness + synthesizability +
 novelty), and exports a ranked candidate set — all reproducibly tracked.
 
-Ligandra is the rebuild of a Siglec-specific Streamlit prototype into a modular,
+Ligandra is the rebuild of a Streamlit prototype into a modular,
 extensible library. Every layer is a **registry of plugins behind a small ABC**,
 so adding a transformer or diffusion model is *one new class*, never a pipeline
 rewrite.
