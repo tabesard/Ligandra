@@ -169,7 +169,7 @@ diffusion generator is just another registered subclass.
 
 ---
 
-## Transfer learning & the representation-consistency contract (M5 / §7)
+## Transfer learning & the representation-consistency contract 
 
 The `foundation` model loads a pretrained SMILES transformer (ChemBERTa /
 MoLFormer / any newer HF checkpoint — the id is a config string) and either
@@ -238,7 +238,7 @@ orchestration edits.
 
 ---
 
-## Generative engines (M6)
+## Generative engines
 
 All generators share one `Generator` interface (`sample` / `optimize_for_target`)
 and are interchangeable via config:
@@ -271,7 +271,7 @@ and are interchangeable via config:
 
 ---
 
-## Reproducibility & tracking (M10)
+## Reproducibility & tracking 
 
 Every run seeds all RNGs, hashes the dataset, and writes a manifest
 (`runs/<name>_<timestamp>/manifest.json`) with the full config, params, metrics
