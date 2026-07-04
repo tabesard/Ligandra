@@ -1,0 +1,58 @@
+name: experiment
+task: regression
+seed: 42
+target:
+  source: chembl
+  query: null
+  target_id: CHEMBL2095217
+  endpoint: IC50
+  path: null
+  smiles_col: smiles
+  value_col: value
+  id_col: null
+curation:
+  active_threshold: 100000.0
+  inactive_threshold: 10000.0
+  default_units: nM
+  standardize: true
+  dedupe: true
+  drop_invalid: true
+split:
+  strategy: scaffold
+  test_size: 0.15
+  val_size: 0.1
+  seed: 42
+featurizers:
+- name: learned
+  params: {}
+models:
+- name: foundation
+  params: {}
+  pretrained: null
+  finetune: false
+generator:
+  name: transformer
+  params: {}
+  budget: 200
+  n_output: 50
+objectives:
+- scorer: potency
+  weight: 1.0
+  minimize: false
+  params: {}
+- scorer: qed
+  weight: 1.0
+  minimize: false
+  params: {}
+- scorer: sa
+  weight: 1.0
+  minimize: false
+  params: {}
+tracking:
+  backend: local
+  experiment_name: ligandra
+  output_dir: runs
+cache:
+  enabled: true
+  dir: data_cache
+  refresh: false

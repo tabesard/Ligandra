@@ -1,0 +1,17 @@
+# Installs Ligandra itself (editable) plus the lightweight [ui] extra
+# (streamlit, matplotlib). This is what makes `import ligandra...` resolve
+# on Streamlit Community Cloud, and keeps versions in sync with
+# pyproject.toml instead of duplicating pins here.
+#
+# Deliberately NOT included, to keep the public demo fast/CPU-only:
+#   [deep]   torch, transformers, selfies     -> foundation/LM/VAE/transformer generators
+#   [gnn]    torch                            -> Chemprop/D-MPNN models
+#   [boost]  xgboost, lightgbm                -> gradient-boosted classical models
+#   [chembl] chembl_webresource_client        -> live ChEMBL queries
+#   [dock]   meeko (+ external vina binary)   -> docking
+# The bundled demo config (examples/local_experiment.yaml) only needs
+# ecfp/lipinski featurizers, ridge/random_forest models, and the graph_ga
+# generator — all covered by the core deps in pyproject.toml. Install extras
+# locally with, e.g.:
+#   pip install -e ".[deep,gnn,boost,chembl,dock,tracking]"
+-e ".[ui]"

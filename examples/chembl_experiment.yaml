@@ -1,0 +1,59 @@
+name: egfr_demo
+task: regression
+seed: 42
+
+# Requires: pip install -e ".[chembl]"
+target:
+  source: chembl
+  query: EGFR          # any gene name, target family, or exact ChEMBL id
+  endpoint: IC50        # IC50 | Ki | Kd | EC50 | %inhibition
+
+curation:
+  active_threshold: 1000.0
+  inactive_threshold: 10000.0
+  default_units: nM
+  standardize: true
+
+split:
+  strategy: scaffold
+  test_size: 0.2
+  val_size: 0.1
+  seed: 42
+
+featurizers:
+  - name: ecfp
+    params: {n_bits: 2048, radius: 2}
+  - name: rdkit_descriptors
+
+models:
+  - name: ridge
+  - name: random_forest
+  - name: svr
+  # Uncomment with `.[deep]` installed for transfer learning:
+  # - name: foundation
+  #   pretrained: DeepChem/ChemBERTa-77M-MTR
+  #   finetune: true
+  #   params: {freeze_encoder: true, epochs: 20}
+
+generator:
+  name: graph_ga     # or 'smiles_lm' with `.[deep]`
+  params: {population_size: 100}
+  budget: 500
+  n_output: 100
+
+objectives:
+  - scorer: potency
+    weight: 1.0
+    params: {center: 6.5, scale: 1.0}
+  - scorer: qed
+    weight: 0.5
+  - scorer: sa
+    weight: 0.5
+  - scorer: druglikeness
+    weight: 0.25
+  - scorer: novelty
+    weight: 0.25
+
+tracking:
+  backend: local
+  output_dir: runs

@@ -1,0 +1,18 @@
+# Ligandra Streamlit configuration.
+[server]
+# `transformers` ships optional image-processing modules that `import torchvision`
+# (not installed — Ligandra is molecules-only). Streamlit's hot-reload file
+# watcher walks those submodules and floods the console with harmless
+# ModuleNotFoundError tracebacks once the foundation model is used. Disabling the
+# watcher stops the noise; edit code then restart `streamlit run` to reload.
+fileWatcherType = "none"
+
+[theme]
+# Clean scientific look — a teal/green primary, light base, readable font.
+# Native theming has zero runtime cost and does not touch the pipeline.
+base = "light"
+primaryColor = "#2E8B7A"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F5F8F7"
+textColor = "#1B2A27"
+font = "sans serif"

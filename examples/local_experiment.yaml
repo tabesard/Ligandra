@@ -1,0 +1,53 @@
+name: mini_local_demo
+task: regression
+seed: 42
+
+target:
+  source: local
+  path: examples/mini_dataset.csv
+  smiles_col: smiles
+  value_col: value
+  id_col: molecule_id
+  endpoint: IC50
+
+curation:
+  active_threshold: 1000.0
+  inactive_threshold: 10000.0
+  default_units: nM
+  standardize: true
+
+split:
+  strategy: scaffold
+  test_size: 0.25
+  val_size: 0.0
+  seed: 42
+
+featurizers:
+  - name: ecfp
+    params: {n_bits: 1024, radius: 2}
+  - name: lipinski
+
+models:
+  - name: ridge
+  - name: random_forest
+
+generator:
+  name: graph_ga
+  params: {population_size: 25}
+  budget: 150
+  n_output: 25
+
+objectives:
+  - scorer: potency
+    weight: 1.0
+    params: {center: 6.5, scale: 0.5}
+  - scorer: qed
+    weight: 0.5
+  - scorer: sa
+    weight: 0.5
+  - scorer: novelty
+    weight: 0.25
+
+tracking:
+  backend: local
+  output_dir: runs
