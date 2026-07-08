@@ -297,3 +297,15 @@ checks and de-duplicates generated molecules against the training set so
 "generated" candidates are not memorized actives. Out of scope for v1 (interfaces
 left ready): wet-lab integration, retrosynthesis planning, FEP, and multi-target
 polypharmacology.
+
+---
+
+## Contributors
+
+- [Farshid Zargari](https://github.com/tabesard)
+- [Zahra Nikfarjam](https://github.com/NikfarjamZahra)
+
+Contributions are welcome — see the [Developer Guide](docs/DEVELOPER_GUIDE.md)
+for the plugin architecture, then open a PR.
+
+Add contributors section
